@@ -25,13 +25,14 @@ if ('development' == app.get('env')) {
 app.get('/getBIOS', 
 	function(req, res){ 
 		var bios = execSync('./bin/getBIOS.py');
+		res.encoding('binary');
 		res.send(bios);
 	}
 );
 
 app.post('/setBIOS', 
 	function(req, res) {
-		fs.writeFile('/tmp/BIOS.ascii.np', req.body.BIOS, 
+		fs.writeFile('/tmp/BIOS.np', req.body.BIOS, 
 			function(err) {
     			if(err) {
         			console.log(err);
