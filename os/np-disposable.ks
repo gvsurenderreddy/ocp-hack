@@ -1,9 +1,4 @@
-# Defines the basics for all kickstarts in the fedora-live branch
-# Does not include package selection (other then mandatory)
-# Does not include localization packages or configuration
-#
-# Does includes "default" language configuration (kickstarts including
-# this template can override these settings)
+# Kickstart for CentOS 6.4 to create disposable OS
 
 lang en_US.UTF-8
 keyboard us
@@ -54,14 +49,7 @@ chmod 755 /etc/init.d/ocp-agent
 mkdir /opt/ocp-agent
 mv /tmp/ocp-hack-master/agent /opt/ocp-agent
 cd /opt/ocp-agent
-cd /opt/nodeprime/minion
-cd bin 
-wget http://192.168.0.3/minion/node-v0.10.5-linux-x64.tar.gz
-tar xvzf node*.gz
-rm -f node*.gz
-mv node* node
-cd /opt/nodeprime/minion
-/opt/nodeprime/minion/bin/node/bin/npm install
+/opt/ocp-agent/bin/node/bin/npm install
 
 # Edit grub to allow headless booting
 sed -i "s/\(.*\)\(speed\)/#\1\2/g" /boot/grub/grub.conf

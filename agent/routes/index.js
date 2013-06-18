@@ -1,8 +1,13 @@
+/* jslint node: true */
+"use strict";
 
-/*
- * GET home page.
- */
-
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+var execSync = require('exec-sync');
+module.exports = {
+    getBIOS: function () {
+        return execSync('./bin/getBIOS.py');
+    },
+    setBIOS: function (callback) {
+        var e = execSync('./bin/setBIOS.py');
+        return true;
+    }
 };
