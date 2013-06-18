@@ -1,5 +1,3 @@
-# fedora-live-base.ks
-#
 # Defines the basics for all kickstarts in the fedora-live branch
 # Does not include package selection (other then mandatory)
 # Does not include localization packages or configuration
@@ -46,19 +44,18 @@ rm -f /boot/initramfs*
 # make sure there aren't core files lying around
 rm -f /core*
 
-#Install Minion
-wget --output-document=/etc/rc.d/init.d/minion http://192.168.0.3/minion/minion 
-chmod 755 /etc/init.d/minion
-/sbin/chkconfig --add minion
-wget http://192.168.0.3/minion/minion.tar.gz
-mkdir /opt/nodeprime
-mv minion.tar.gz /opt/nodeprime
-cd /opt/nodeprime
-tar xvzf minion.tar.gz
-rm -f minion.tar.gz
+#Install Agent
+wget --output-document=/tmp/master.zip https://github.com/NodePrime/ocp-hack/archive/master.zip
+cd /tmp
+unzip master.zip
+mv /tmp/ocp-hack-master/init/ocp-agent /etc/init.d/ocp-agent
+chmod 755 /etc/init.d/ocp-agent
+/sbin/chkconfig --add ocp-agent
+mkdir /opt/ocp-agent
+mv /tmp/ocp-hack-master/agent /opt/ocp-agent
+cd /opt/ocp-agent
 cd /opt/nodeprime/minion
 cd bin 
-rm -rf node
 wget http://192.168.0.3/minion/node-v0.10.5-linux-x64.tar.gz
 tar xvzf node*.gz
 rm -f node*.gz
@@ -66,6 +63,8 @@ mv node* node
 cd /opt/nodeprime/minion
 /opt/nodeprime/minion/bin/node/bin/npm install
 
+# Edit grub to allow headless booting
+sed -i "s/\(.*\)\(speed\)/#\1\2/g" /boot/grub/grub.conf
 %end
 
 
