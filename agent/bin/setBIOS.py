@@ -1,3 +1,3 @@
 #!/usr/bin/python
 import commands
-import json
+bios = commands.getoutput("cat /tmp/BIOS.np > /dev/nvram")

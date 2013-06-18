@@ -5,7 +5,8 @@
 
 var express = require('express')
   , http = require('http')
-  , execSync = require('exec-sync');
+  , execSync = require('exec-sync')
+  , fs = require('fs');
 
 var app = express();
 
@@ -23,14 +24,24 @@ if ('development' == app.get('env')) {
 
 app.get('/getBIOS', 
 	function(req, res){ 
-		var bios = execSync('./bin/getBIOS.py')
+		var bios = execSync('./bin/getBIOS.py');
 		res.send(bios);
 	}
 );
 
-app.set('/setBIOS', 
+app.post('/setBIOS', 
 	function(req, res) {
-		res.send('Testes 123')
+		fs.writeFile('/tmp/BIOS.ascii.np', req.body.BIOS, 
+			function(err) {
+    			if(err) {
+        			console.log(err);
+    			} else {
+        			console.log('The BIOS file was saved!');
+    			}
+			}
+		); 
+		execSync('./bin/setBIOS.py');
+		res.send('BIOS Updated');
 	}
 );
 
