@@ -4,8 +4,8 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
-  , http = require('http');
+  , http = require('http')
+  , execSync = require('exec-sync');
 
 var app = express();
 
@@ -21,8 +21,18 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/getBIOS', routes.getBIOS);
-app.set('/setBIOS', routes.setBIOS);
+app.get('/getBIOS', 
+	function(req, res){ 
+		var bios = execSync('./bin/getBIOS.py')
+		res.send(bios);
+	}
+);
+
+app.set('/setBIOS', 
+	function(req, res) {
+		res.send('Testes 123')
+	}
+);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('ocp-agent listening on port ' + app.get('port'));
