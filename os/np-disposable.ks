@@ -34,6 +34,9 @@ cmake
 %end
 
 %post
+# Add github.com to host file
+echo "204.232.175.90 github.com" >> /etc/hosts
+
 # save a little bit of space at least...
 rm -f /boot/initramfs*
 # make sure there aren't core files lying around
