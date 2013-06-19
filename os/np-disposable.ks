@@ -40,14 +40,14 @@ rm -f /boot/initramfs*
 rm -f /core*
 
 #Install Agent
-wget --output-document=/tmp/master.zip https://github.com/NodePrime/ocp-hack/archive/master.zip
+
 cd /tmp
-unzip master.zip
-mv /tmp/ocp-hack-master/init/ocp-agent /etc/init.d/ocp-agent
+git clone https://github.com/NodePrime/ocp-hack.git
+mv /tmp/ocp-hack/init/ocp-agent /etc/init.d/ocp-agent
 chmod 755 /etc/init.d/ocp-agent
 /sbin/chkconfig --add ocp-agent
 mkdir /opt/ocp-agent
-mv /tmp/ocp-hack-master/agent /opt/ocp-agent
+mv /tmp/ocp-hack/agent /opt/ocp-agent
 cd /opt/ocp-agent
 /opt/ocp-agent/bin/node/bin/npm install
 

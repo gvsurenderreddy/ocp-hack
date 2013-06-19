@@ -14,6 +14,8 @@ echo "          MMM                                                             
 echo "                                                                               "
 echo "Creating NodePrime Disposable OS"
 echo " "
+echo "Installing livecd-tools"
+yum -y install livecd-tools
 ls -l | egrep '^d' | xargs rm -rf
 livecd-creator -v --config=np-disposable.ks --fslabel=NodePrime-Disposable-OS
 livecd-iso-to-pxeboot NodePrime-Disposable-OS.iso
