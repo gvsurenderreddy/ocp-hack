@@ -32,15 +32,7 @@ app.get('/getBIOS',
 
 app.post('/setBIOS', 
 	function(req, res) {
-		fs.writeFile('/tmp/nvram', req.files.BIOS, 
-			function(err) {
-    			if(err) {
-        			console.log(err);
-    			} else {
-        			console.log('BIOS updated');
-    			}
-			}
-		); 
+		fs.rename(req.files.BIOS.path, '/tmp/nvram');
 		res.send('BIOS Updated');
 	}
 );
