@@ -40,7 +40,6 @@ rm -f /boot/initramfs*
 rm -f /core*
 
 #Install Agent
-
 cd /tmp
 git clone https://github.com/NodePrime/ocp-hack.git
 mv /tmp/ocp-hack/init/ocp-agent /etc/init.d/ocp-agent
