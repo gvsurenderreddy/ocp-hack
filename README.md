@@ -1,5 +1,7 @@
 This is a project from the 2nd OCP Hackathon @ Facebook
 
+This project allows you to clone a BIOS from one Oepn Compute Server to another
+
 The agent directory contains a nodejs agent that allows you to read and write to the NVRAM in SMBIOS
 
 The init directory contains a init script for the agent
